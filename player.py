@@ -16,7 +16,7 @@ import signal
 
 VERBOSE = True
 PYTHON_VER = 'python3.5'
-STORAGE = '/home/moh18/Music/'
+STORAGE = '/home/pi/Music/'
 
 
 play_list = os.listdir(STORAGE)
