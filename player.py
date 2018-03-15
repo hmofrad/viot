@@ -17,19 +17,32 @@ import signal
 
 VERBOSE = True
 PYTHON_VER = 'python3.5'
-STORAGE = '/home/pi/Music/'
+STORAGE = '/home/pi/Music'
+FIFO = '/tmp/mplayer.fifo'
 
+#if not os.path.exists(FIFO):
+#    os.system('mkfifo ' + FIFO)
 
-play_list = os.listdir(STORAGE)
-play_list_len = len(play_list)
-if VERBOSE:
-    print('+++++++++++++begin Playlist+++++++++++++')
-    print('+')
-    for song in play_list:
-        print('+', song)
-    print('+')
-    print('+++++++++++++End   Playlist+++++++++++++')
-shuffle(play_list)
+#playlist = subprocess.call(['find', STORAGE, '-type', 'f', '>', 'playlist'])
+#playlist = subprocess.call(['find', STORAGE, '-type', 'f'])
+#print(playlist)
+#exit(0)
+#find "$PWD" -type f > playlist
+
+#play_list = os.listdir(STORAGE)
+#play_list_len = len(playlist)
+#if VERBOSE:
+#    print('+++++++++++++begin Playlist+++++++++++++')
+#    print('+')
+#    for song in playlist:
+#        print('+', song)
+#    print('+')
+#    print('+++++++++++++End   Playlist+++++++++++++')
+
+#exit(0)
+    
+#shuffle(play_list)
+
 
 def exit_failure():
     print('USAGE:', PYTHON_VER , argv[0], 'device action sub_action')    
@@ -50,10 +63,10 @@ argv =  sys.argv
 if(argc == 3):
     parent = argv[0]
     device = argv[1]
-    if(device != 'mpg123'):
+    if(device != 'mplayer'):
         exit_failure()
     action = argv[2]
-    if((action != 'start') & (action != 'stop') & (action != 'pause') & (action != 'resume')):
+    if((action != 'start') & (action != 'quit') & (action != 'pause')):
         exit_failure()
 else:
     exit_failure()
@@ -61,36 +74,52 @@ else:
 device_pid = get_pid(device)
 
 status = False
-if(device == 'mpg123'):
+if(device == 'mplayer'):
     if(action == 'start'):
         if(device_pid == 0):
-            i = 0
-            while True:
-                if((i != 0) & ((i % (play_list_len - 1)) == 0)):
-                    i = 0    
-                else:
-                    i = i + 1
-                print(device, ':Start playing', play_list[i], 'with pid=', device_pid)
-                arguments = STORAGE + play_list[i]
-                call([device, arguments])
+            print('start')
+            #i = 0
+            #while True:
+            #    if((i != 0) & ((i % (play_list_len - 1)) == 0)):
+            #        i = 0    
+            #    else:
+            #        i = i + 1
+            #print(device, ':Start playing', play_list[i], 'with pid=', device_pid)
+            print(device, ':Start playing', 'with pid=', device_pid)
+            #arguments = STORAGE + play_list[i]
+            #print(play_list)
+
+            #mplayer -slave -input file=/tmp/mplayer-control
+            #' </dev/null >/dev/null 2>&1'
+            arguments = ' -noconsolecontrols -shuffle -slave -input file=' + CMD_PLAIN + ' ' + STORAGE + '/*' + ' < /dev/null &'
+            os.system(device + arguments)
+            #subprocess.call([device, '-shuffle', '/home/pi/Music/despacito.mp3'])
+            #call([device, arguments])
         else:
             print(device, ':Already playing with pid=', device_pid)
-    elif(action == 'stop'):
+    elif(action == 'quit'):
         if(device_pid != 0):
-            parent_device = PYTHON_VER + ' ' + parent + ' ' + device + ' start'
-            print(device, ':Stop playing with pid=', device_pid)
-            print(device, ':Stop playing with pid=', os.system('pgrep ' + device))
-            call(['pkill', '-f', parent_device])
-            os.kill(device_pid, signal.SIGTERM)
+            print('quit')
+            arguments = action + ' > ' + FIFO
+            os.system('echo ' + arguments)
+        
+            #parent_device = PYTHON_VER + ' ' + parent + ' ' + device + ' start'
+            #print(device, ':Stop playing with pid=', device_pid)
+            #print(device, ':Stop playing with pid=', os.system('pgrep ' + device))
+            #call(['pkill', '-f', parent_device])
+            #os.kill(device_pid, signal.SIGTERM)
         else:
             print(device, ':Already stopped with pid=', device_pid)
     elif(action == 'pause'):            
         if(device_pid != 0):
             print('pause')
-            player = subprocess.Popen(device, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
-            print(player.pid)
-            print(device, ':Stop playing with pid=', device_pid)
-            print(device, ':Stop playing with pid=', os.system('pgrep ' + device))
+            arguments = action + ' > ' + FIFO
+            os.system('echo ' + arguments)
+            #echo "pause" > /tmp/mplayer-control
+            #player = subprocess.Popen(device, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+            #print(player.pid)
+            #print(device, ':Stop playing with pid=', device_pid)
+            #print(device, ':Stop playing with pid=', os.system('pgrep ' + device))
             
 
             

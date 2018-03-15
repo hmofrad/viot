@@ -9,8 +9,11 @@ from subprocess import call
 from time import sleep
 import os
 
+PYTHON_VER = 'python3.5'
+script = 'player.py'
+device = 'mplayer'
 
-keywords = ['play', 'start', 'stop', 'pause', 'resume']
+keywords = ['play', 'start', 'stop', 'pause', 'resume', 'quit']
 
 while True:
     INVALID_CMD = True
@@ -31,16 +34,25 @@ while True:
         for key in keywords: 
             if key in transcribed_text:
                 command = key
-                if(key == 'play'):
-                    command = 'start'
+                #if(key == 'play'):
+                #    command = 'start'
+                #    os.system(PYTHON_VER + ' ' + script + ' ' + device + ' ' + command)
+                
+                if((key == 'play') or (key == 'pause') or (key == 'resume')):    
+                    command = 'pause'
+                elif(key == 'stop'):
+                    command = 'quit'    
                 INVALID_CMD = False
                 print(command)
+                os.system(PYTHON_VER + ' ' + script + ' ' + device + ' ' + command)
                 break
             
         if(INVALID_CMD == True):
             print('Unsupported command')
         else:
-            os.system('python3.5 player.py mpg123 ' + command + ' &')
+            print('Command sent to player!')
+            
+            
     except sr.UnknownValueError:
         print("Google Speech Recognition could not understand audio")
     except sr.RequestError as e:
