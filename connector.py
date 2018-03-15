@@ -1,5 +1,5 @@
 #!/usr/bin/python3.5
-# MP3 player wrapper implementation
+# Speech API implementation
 # (c) Mohammad HMofrad, 2018 
 # (e) mohammad.hmofrad@pitt.edu
 
@@ -10,7 +10,7 @@ from time import sleep
 import os
 
 
-keywords = ['play', 'start', 'stop']
+keywords = ['play', 'start', 'stop', 'pause', 'resume']
 
 while True:
     INVALID_CMD = True

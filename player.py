@@ -9,6 +9,7 @@ from subprocess import check_output
 from subprocess import CalledProcessError
 from subprocess import Popen
 from time import sleep
+import subprocess
 import os
 import sys
 import signal
@@ -52,7 +53,7 @@ if(argc == 3):
     if(device != 'mpg123'):
         exit_failure()
     action = argv[2]
-    if((action != 'start') & (action != 'stop')):
+    if((action != 'start') & (action != 'stop') & (action != 'pause') & (action != 'resume')):
         exit_failure()
 else:
     exit_failure()
@@ -76,11 +77,23 @@ if(device == 'mpg123'):
             print(device, ':Already playing with pid=', device_pid)
     elif(action == 'stop'):
         if(device_pid != 0):
-            print('>>>>>>>>>>>>....', device_pid)
             parent_device = PYTHON_VER + ' ' + parent + ' ' + device + ' start'
             print(device, ':Stop playing with pid=', device_pid)
+            print(device, ':Stop playing with pid=', os.system('pgrep ' + device))
             call(['pkill', '-f', parent_device])
             os.kill(device_pid, signal.SIGTERM)
+        else:
+            print(device, ':Already stopped with pid=', device_pid)
+    elif(action == 'pause'):            
+        if(device_pid != 0):
+            print('pause')
+            player = subprocess.Popen(device, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+            print(player.pid)
+            print(device, ':Stop playing with pid=', device_pid)
+            print(device, ':Stop playing with pid=', os.system('pgrep ' + device))
+            
+
+            
         else:
             print(device, ':Already stopped with pid=', device_pid)
     else:
