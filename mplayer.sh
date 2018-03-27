@@ -3,7 +3,7 @@
 # (c) Mohammad Mofrad, 2018 
 # (e) mohammad.hmofrad@pitt.edu
 
-# 123
+#dfd 123  fd
 
 rm -rf /home/pi/viota/mplayer.fifo
 sleep 1
