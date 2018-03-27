@@ -18,7 +18,7 @@ import signal
 VERBOSE = True
 PYTHON_VER = 'python3.5'
 STORAGE = '/home/pi/Music'
-FIFO = '/tmp/mplayer.fifo'
+FIFO = '/home/pi/viota/mplayer.fifo'
 
 #if not os.path.exists(FIFO):
 #    os.system('mkfifo ' + FIFO)
@@ -100,6 +100,7 @@ if(device == 'mplayer'):
     elif(action == 'quit'):
         if(device_pid != 0):
             print('quit')
+            action = 'pause'
             arguments = action + ' > ' + FIFO
             os.system('echo ' + arguments)
         

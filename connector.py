@@ -10,7 +10,7 @@ from time import sleep
 import os
 
 PYTHON_VER = 'python3.5'
-script = 'player.py'
+script = '/home/pi/viota/player.py'
 device = 'mplayer'
 
 keywords = ['play', 'start', 'stop', 'pause', 'resume', 'quit']
