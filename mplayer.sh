@@ -12,3 +12,4 @@ echo 'pause' >  /home/pi/viota/mplayer.fifo
 
 python3.5 /home/pi/viota/connector.py > /home/pi/viota/speech_logs 2>&1 &
 
+# echo 
