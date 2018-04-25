@@ -8,4 +8,4 @@ Voice-enabled IoT
     * PyAudio: sudo apt-get install portaudio19-dev python-all-dev python3-all-dev && sudo pip install pyaudio
     * Google Cloud Speech API: sudo pip install google-api-python-client
     * mpg123: sudo apt-get install mpg123
-
+    * Matlab R2018a
