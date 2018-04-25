@@ -1,6 +1,6 @@
 #!/usr/bin/python3.5
 # Speech API implementation
-# (c) Mohammad HMofrad, 2018 
+# (c) Mohammad Mofrad, 2018 
 # (e) mohammad.hmofrad@pitt.edu
 
 
