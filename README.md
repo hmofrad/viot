@@ -1,5 +1,13 @@
-# viot
+# viota
 Voice-enabled IoT
+
+# src
+    * Baseline (Google Cloud Speech API)
+    * Reconstruction Independent Component Analysis (RICA)
+    * Crossed Lowpass Filer
+
+# src/pi
+    * Voice-enabled music player for Raspberry Pi
 
 # Requirements
     * Linux OS
@@ -9,3 +17,4 @@ Voice-enabled IoT
     * Google Cloud Speech API: sudo pip install google-api-python-client
     * mpg123: sudo apt-get install mpg123
     * Matlab R2018a
+
