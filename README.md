@@ -4,7 +4,7 @@ Voice-enabled IoT
 # src
 * Baseline (Google Cloud Speech API)
 * Reconstruction Independent Component Analysis (RICA)
-* Crossed Lowpass Filer
+* Reconstruction Lowpass Filer (RLF)
 
 # src/pi
 * Voice-enabled music player for Raspberry Pi
