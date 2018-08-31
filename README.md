@@ -19,5 +19,5 @@ Voice-enabled IoT
 * Matlab R2018a
 
 # Reference
-*	Mohammad Hasanzadeh Mofrad, Daniel Mosse. “Speech Recognition and Voice Separation for the Internet of Things.” To appear in 8th International Conference on the Internet of Things (IOT), 2018.
+*	Mohammad Hasanzadeh Mofrad, Daniel Mosse. “Speech Recognition and Voice Separation for the Internet of Things.” To appear in 8th International Conference on the Internet of Things (IOT), 2018. (http://iot-conference.org/)
 
