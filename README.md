@@ -18,3 +18,6 @@ Voice-enabled IoT
 * mpg123: sudo apt-get install mpg123
 * Matlab R2018a
 
+# Reference
+*	Mohammad Hasanzadeh Mofrad, Daniel Mosse. “Speech Recognition and Voice Separation for the Internet of Things.” To appear in 8th International Conference on the Internet of Things (IOT), 2018.
+
